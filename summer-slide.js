@@ -4,7 +4,7 @@
 		var $tray = $('.tray');
 		var $dist = $tray.width();
 		var $page = $('.page');
-		var defaultToggeleState = true;
+		var defaultToggleState = true;
 
 		var settings = $.extend({
 			"speed": "fast",
@@ -21,7 +21,7 @@
 				$page.animate({
 					'margin-left': $dist + 'px'
 				});
-				defaultToggeleState = false;
+				defaultToggleState = false;
 			} else {
 				$tray.animate({
 					'margin-left': 0
@@ -31,7 +31,7 @@
 					'margin-left': 0
 				});
 
-				defaultToggeleState = true;
+				defaultToggleState = true;
 			}
 			ev.preventDefault();
 		});
