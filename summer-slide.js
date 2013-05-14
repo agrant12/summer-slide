@@ -10,5 +10,30 @@
 			"speed": "fast",
 			"width": 250
 		}, options);
+
+		$button.on('click', function(ev){
+
+			if (defaultToggeleState){
+				$tray.animate({
+					'margin-left': $dist + 'px'
+				});
+
+				$page.animate({
+					'margin-left': $dist + 'px'
+				});
+				defaultToggeleState = false;
+			} else {
+				$tray.animate({
+					'margin-left': 0
+				});
+
+				$page.animate({
+					'margin-left': 0
+				});
+
+				defaultToggeleState = true;
+			}
+			ev.preventDefault();
+		});
 	};
 });
