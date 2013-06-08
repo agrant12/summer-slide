@@ -1,86 +1,43 @@
 (function($){
-	$.fn.hamburger = function(options){
 
-		var $button = $('.button');
-		var $tray = $('.tray');
-		var $dist = $tray.width();
-		var $page = $('.page');
-		var $myLocation = 0;
-		var defaultToggleState = true;
+    $.fn.slide = function(options){
+        var defaults = {
+            menu: '#menu',
+            speed: 1000,
+            easing: '',
+            width: 200,
+            defaultToggleState: true,
+            children: '#body'
+        }
 
-		var settings = $.extend({
-			"speed": "fast",
-			"width": 250
-		}, options);
+        var options = $.extend(defaults, options);
+        
+        var defaultToggleState = true;
 
-		if (/(iPhone|iPad|iPod|Android)/i.test(navigator.userAgent)){
+        $(this).on('click', function(ev){
 
-			$button.on('click', function(ev){
+            if (defaultToggleState){
 
-				if (defaultToggeleState){
+                $(options.menu).animate({'margin-left': options.width + 'px'}, options.speed);
 
-					$myLocation = $(window).scrollTop();
+                $(options.children).each(function(){
+                    $(options.children).animate({'margin-left': options.width + 'px'}, options.speed);
+                });
 
-					$tray.animate({
-						'margin-left': $dist + 'px'
-					});
+                defaultToggleState = false;
+                
+            } else {
 
-					$page.animate({
-						'margin-left': $dist + 'px',
-						'position': 'fixed',
-						'top': '-' + $myLocation + 'px'
-					});
+                $(options.menu).animate({'margin-left': 0}, options.speed);
 
-					defaultToggleState = false;
+				$(options.children).each(function(){
+                    $(options.children).animate({'margin-left': 0}, options.speed);
+                });
 
-				} else {
+                defaultToggleState = true;
+            }
+            ev.preventDefault();
+        });
+    }
 
-					$(window).scrollTop($myLocation);
-
-					$tray.animate({
-						'margin-left': 0
-					});
-
-					$page.animate({
-						'margin-left' : 0
-					});
-
-					defaultToggleState = true;
-
-				}
-
-		} else {
-
-			$button.on('click', function(ev){
-
-				if (defaultToggeleState){
-					
-					$tray.animate({
-						'margin-left': $dist + 'px'
-					});
-
-					$page.animate({
-						'margin-left': $dist + 'px'
-					});
-
-					defaultToggleState = false;
-
-				} else {
-
-					$tray.animate({
-						'margin-left': 0
-					});
-
-					$page.animate({
-						'margin-left': 0
-					});
-
-					defaultToggleState = true;
-				}
-
-				ev.preventDefault();
-
-			});
-		}
-	};
-});
+})(jQuery);
