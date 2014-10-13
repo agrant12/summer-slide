@@ -1,43 +1,45 @@
 (function($){
 
-    $.fn.slide = function(options){
-        var defaults = {
-            menu: '#menu',
-            speed: 1000,
-            easing: '',
-            width: 200,
-            defaultToggleState: true,
-            children: '#body'
-        }
+	$.fn.slide = function(options) {
+		var defaults = {
+			menu: '',
+			speed: 1000,
+			easing: '',
+			defaultToggleState: true,
+			children: ''
+		}
 
-        var options = $.extend(defaults, options);
-        
-        var defaultToggleState = true;
+		var options = $.extend(defaults, options);
 
-        $(this).on('click', function(ev){
+		var width = $(options.menu).width();
 
-            if (defaultToggleState){
+		var defaultToggleState = true;
 
-                $(options.menu).animate({'margin-left': options.width + 'px'}, options.speed);
+		$(this).on('click', function(e){
 
-                $(options.children).each(function(){
-                    $(options.children).animate({'margin-left': options.width + 'px'}, options.speed);
-                });
+			if (defaultToggleState){
 
-                defaultToggleState = false;
-                
-            } else {
-
-                $(options.menu).animate({'margin-left': 0}, options.speed);
+				$(options.menu).animate({'margin-left': 0}, options.speed);
 
 				$(options.children).each(function(){
-                    $(options.children).animate({'margin-left': 0}, options.speed);
-                });
+					$(options.children).animate({'margin-left': width}, options.speed);
+				});
 
-                defaultToggleState = true;
-            }
-            ev.preventDefault();
-        });
-    }
+				defaultToggleState = false;
+
+			} else {
+
+				$(options.menu).animate({'margin-left': '-' + width}, options.speed);
+
+				$(options.children).each(function(){
+					$(options.children).animate({'margin-left': 0}, options.speed);
+				});
+
+				defaultToggleState = true;
+			}
+			
+			e.preventDefault();
+		});
+	}
 
 })(jQuery);
